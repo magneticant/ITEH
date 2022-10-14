@@ -1,3 +1,33 @@
+<?php
+
+require "model/dbBroker.php";
+require "model/user.php";
+
+session_start();
+
+if(isset($_POST["username"]) && isset($_POST["password"])){
+    $uname = $_POST["username"];
+    $upass = $_POST["password"];
+    $user_id = 1;
+
+    $korisnik = new user($id, $username, $password);
+
+    //$odg = $korisnik->loginUser($korisnik, $baza);
+    $odg = User::loginUser($korisnik, $baza);
+
+    echo json_encode('$odg');
+    
+    if($odg){
+        $_SESSION['user_id'] = $korisnik->id;
+        header('location: home.php');
+
+    }
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
